@@ -24,7 +24,7 @@
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="dataSource" ref="dataSource"/>
         <!-- 扫描model包 -->
-        <property name="typeAliasesPackage" value="com.demo.model"/>
+        <property name="typeAliasesPackage" value="com.ld.model"/>
         <!-- 扫描sql配置文件:mapper需要的xml文件-->
         <property name="mapperLocations" value="classpath:mapper/*.xml"/>
 
@@ -48,7 +48,7 @@
         <!-- 注入sqlSessionFactory -->
         <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
         <!-- 给出需要扫描mapper接口包 -->
-        <property name="basePackage" value="com.demo.mapper"/>
+        <property name="basePackage" value="com.ld.mapper"/>
     </bean>
 
     <!-- 事务管理 -->
