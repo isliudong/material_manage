@@ -12,4 +12,10 @@ public interface MaterialService {
 
     PaginationDTO<Material> search(SearchDto searchDto);
 
+    Long getTotalCount();
+
+    int update(Material material);
+
+    int delete(String itemCode);
+
 }

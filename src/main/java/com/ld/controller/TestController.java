@@ -21,7 +21,7 @@ public class TestController {
     @Autowired
     MaterialService materialService;
 
-    @RequestMapping("/insert")
+
     public String insert(){
         Date day=new Date();
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");

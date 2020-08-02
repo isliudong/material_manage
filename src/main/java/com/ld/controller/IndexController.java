@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.UUID;
 
 
 /**
@@ -26,10 +27,12 @@ public class IndexController {
 
     @Autowired
     MaterialServiceImpl materialService;
+
+
     @RequestMapping("/index")
     public String index(Model model,
                         @RequestParam(defaultValue = "1") Integer page,
-                        @RequestParam(defaultValue = "2") Integer size,
+                        @RequestParam(defaultValue = "5") Integer size,
                         @RequestParam(required = false) String itemCode,
                         @RequestParam(required = false) String description,
                         @RequestParam(required = false) String itemUom,
@@ -89,5 +92,98 @@ public class IndexController {
         model.addAttribute("enabledFlag",enabledFlag);
 
         return "index";
+    }
+
+    @RequestMapping("/insert")
+    public String insert(String newDescription,
+                         String newItemUom,
+                         String newStartActiveDate,
+                         String newEndActiveDate,
+                         String newEnabledFlag){
+
+        Boolean enabled;
+        if(newEnabledFlag==null||"".equals(newEnabledFlag)){
+            enabled=null;
+        }else {
+            enabled= "是".equals(newEnabledFlag);
+        }
+
+        Date startDate=null;
+        Date endDate=null;
+
+        try {
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            if(newStartActiveDate!=null&&!newStartActiveDate.isEmpty()) {
+                startDate = dateFormat.parse(newStartActiveDate);
+            }
+            if (newEndActiveDate!=null&&!newEndActiveDate.isEmpty()) {
+                endDate = dateFormat.parse(newEndActiveDate);
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        Material material = new Material();
+
+        material.setEnabledFlag(enabled);
+        material.setEndActiveDate(endDate);
+        material.setStartActiveDate(startDate);
+        material.setItemDescription(newDescription);
+        material.setItemUom(newItemUom);
+
+        //可能线程问题
+        material.setItemCode("ITEM" +(materialService.getTotalCount()+1));
+        materialService.insert(material);
+        return "redirect:index";
+
+    }
+
+    @RequestMapping("/update")
+    public String update(String updateItemCode,
+                         String updateDescription,
+                         String updateItemUom,
+                         String updateStartActiveDate,
+                         String updateEndActiveDate,
+                         String updateEnabledFlag){
+        Boolean enabled;
+        if(updateEnabledFlag==null||"".equals(updateEnabledFlag)){
+            enabled=null;
+        }else {
+            enabled= "是".equals(updateEnabledFlag);
+        }
+
+        Date startDate=null;
+        Date endDate=null;
+
+        try {
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            if(updateStartActiveDate!=null&&!updateStartActiveDate.isEmpty()) {
+                startDate = dateFormat.parse(updateStartActiveDate);
+            }
+            if (updateEndActiveDate!=null&&!updateEndActiveDate.isEmpty()) {
+                endDate = dateFormat.parse(updateEndActiveDate);
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        Material material = new Material();
+
+        material.setEnabledFlag(enabled);
+        material.setEndActiveDate(endDate);
+        material.setStartActiveDate(startDate);
+        material.setItemDescription(updateDescription);
+        material.setItemUom(updateItemUom);
+        material.setItemCode(updateItemCode);
+
+
+        materialService.update(material);
+        return "redirect:index";
+    }
+
+    @RequestMapping("/delete")
+    public String delete(String itemCode){
+        materialService.delete(itemCode);
+        return "redirect:index";
     }
 }

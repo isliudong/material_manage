@@ -22,7 +22,7 @@ public interface MaterialMapper {
     Material selectByPrimaryKey(Long itemId);
 
 
-    int updateByPrimaryKeySelective(Material record);
+    int updateByItemCodeSelective(Material record);
 
 
     int updateByPrimaryKey(Material record);
@@ -31,4 +31,5 @@ public interface MaterialMapper {
 
     Long totalCount(SearchDto searchDto);
 
+    int deleteByItemCode(String itemCode);
 }

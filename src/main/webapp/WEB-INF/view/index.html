@@ -17,7 +17,80 @@
                 <h2>物料管理</h2>
             </div>
             <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
-                <button class="btn btn-default">新建</button>
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">新建</button>
+
+                <!-- Modal -->
+                <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title" id="myModalLabel">新物料入库</h4>
+                            </div>
+                            <div class="modal-body">
+                                <!--提交表单-->
+                                <form class="form-horizontal" action="/insert">
+                                    <div class="form-group">
+                                        <label for="newDescription" class="col-sm-2 control-label">物料描述</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control" id="newDescription" name="newDescription">
+                                        </div>
+
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="newItemUom" class="col-sm-2 control-label">物料单位</label>
+                                        <div class="col-sm-10">
+                                            <select class="form-control" id="newItemUom" name="newItemUom">
+                                                <option value="米">米</option>
+                                                <option value="平方米">平方米</option>
+                                                <option value="立方米">立方米</option>
+                                                <option value="千克">千克</option>
+                                                <option value="个">个</option>
+                                                <option value="其他">其他</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="newStartActiveDate" class="col-sm-2 control-label">生效时间</label>
+                                        <div class="col-sm-10">
+                                            <input type="date" class="form-control" id="newStartActiveDate" name="newStartActiveDate">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="newEndActiveDate" class="col-sm-2 control-label">有效期至</label>
+                                        <div class="col-sm-10">
+                                            <input type="date" class="form-control" id="newEndActiveDate" name="newEndActiveDate">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="newEnabledFlag" class="col-sm-2 control-label">是否启用</label>
+                                        <div class="col-sm-10">
+                                            <select class="form-control" id="newEnabledFlag" name="newEnabledFlag">
+                                                <option value="是">是</option>
+                                                <option value="否">否</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div class="col-sm-offset-2 col-sm-10">
+                                            <button type="submit" class="btn btn-default">保存</button>
+                                        </div>
+                                    </div>
+
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary">Save changes</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -88,7 +161,94 @@
             <td th:text="${material.startActiveDate}"></td>
             <td th:text="${material.endActiveDate}"></td>
             <td th:text="${material.enabledFlag}">是</td>
-            <td>编辑  删除</td>
+
+            <td>
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" th:attrappend="data-target='#updateModal'+${material.itemCode}" >编辑</button>
+                    <!-- Modal -->
+                    <div class="modal fade" th:attrappend="id='updateModal'+${material.itemCode}" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    <h4 class="modal-title" id="updateModalLabel">更新物料</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <!--提交表单-->
+                                    <form class="form-horizontal" action="/update" >
+
+                                        <div class="form-group">
+                                            <label for="updateItemCode" class="col-sm-2 control-label">物料编码</label>
+                                            <div class="col-sm-10">
+                                                <input type="text" th:value="${material.itemCode}" disabled="disabled" class="form-control" id="updateItemCode" name="updateItemCode">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="updateDescription" class="col-sm-2 control-label">物料描述</label>
+                                            <div class="col-sm-10">
+                                                <input type="text" class="form-control" th:value="${material.itemDescription}" id="updateDescription" name="updateDescription">
+                                            </div>
+
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="updateItemUom" class="col-sm-2 control-label">物料单位</label>
+                                            <div class="col-sm-10">
+                                                <select class="form-control" th:value="${material.itemUom}" id="updateItemUom" name="updateItemUom">
+                                                    <option value="米">米</option>
+                                                    <option value="平方米">平方米</option>
+                                                    <option value="立方米">立方米</option>
+                                                    <option value="千克">千克</option>
+                                                    <option value="个">个</option>
+                                                    <option value="其他">其他</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="updateStartActiveDate" class="col-sm-2 control-label">生效时间</label>
+                                            <div class="col-sm-10">
+                                                <input type="date" th:value="${material.startActiveDate}" class="form-control" id="updateStartActiveDate" name="updateStartActiveDate">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="updateEndActiveDate" class="col-sm-2 control-label">有效期至</label>
+                                            <div class="col-sm-10">
+                                                <input type="date" th:value="${material.endActiveDate}" class="form-control" id="updateEndActiveDate" name="updateEndActiveDate">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="updateEnabledFlag" class="col-sm-2 control-label">是否启用</label>
+                                            <div class="col-sm-10">
+                                                <select class="form-control" th:value="${material.enabledFlag}" id="updateEnabledFlag" name="updateEnabledFlag">
+                                                    <option value="是">是</option>
+                                                    <option value="否">否</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <div class="col-sm-offset-2 col-sm-10">
+                                                <button type="submit" class="btn btn-default">保存</button>
+                                            </div>
+                                        </div>
+
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-primary">Save changes</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <a th:href="@{delete(itemCode=${material.getItemCode()})}">
+                    删除
+                </a>
+            </td>
         </tr>
 
     </table>

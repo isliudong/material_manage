@@ -88,6 +88,9 @@
     delete from ssm_item
     where item_id = #{itemId,jdbcType=BIGINT}
   </delete>
+  <delete id="deleteByItemCode" parameterType="java.lang.String">
+    delete from ssm_item where item_code = #{itemCode}
+  </delete>
   <insert id="insert" parameterType="com.ld.model.Material">
     <!--
       WARNING - @mbg.generated
@@ -184,7 +187,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.ld.model.Material">
+  <update id="updateByItemCodeSelective" parameterType="com.ld.model.Material">
 
     update ssm_item
     <set>
@@ -222,7 +225,7 @@
         last_update_date = #{lastUpdateDate,jdbcType=TIMESTAMP},
       </if>
     </set>
-    where item_id = #{itemId,jdbcType=BIGINT}
+    where item_code = #{itemCode,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.ld.model.Material">
 

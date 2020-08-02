@@ -22,7 +22,7 @@ public class MaterialServiceImpl implements MaterialService{
     private MaterialMapper materialMapper;
     @Override
     public int insert(Material record) {
-        return materialMapper.insert(record);
+        return materialMapper.insertSelective(record);
     }
 
     @Override
@@ -34,6 +34,9 @@ public class MaterialServiceImpl implements MaterialService{
         Integer page = searchDto.getPage();
         int totalPage;
 
+        /*
+        * 页面范围限制
+        * */
         if (totalCount % size == 0) {
             totalPage = (int) (totalCount / size);
         } else {
@@ -44,17 +47,38 @@ public class MaterialServiceImpl implements MaterialService{
         } else if (totalPage>0&&page > totalPage) {
             page = totalPage;
         }
+
+        /*
+        * 分页初始位置计算
+        * */
         Integer offset = size * (page - 1);
         searchDto.setPage(offset);
+
+
+
         List<Material> materials = materialMapper.search(searchDto);
-
         PaginationDTO<Material> paginationDTO = new PaginationDTO<>();
-
         paginationDTO.setData(materials);
-
-
         paginationDTO.setPagination(totalPage, page);
+
+
         return paginationDTO;
+    }
+
+    @Override
+    public Long getTotalCount() {
+        return materialMapper.totalCount(new SearchDto());
+    }
+
+    @Override
+    public int update(Material material) {
+        return materialMapper.updateByItemCodeSelective(material);
+    }
+
+    @Override
+    public int delete(String itemCode) {
+
+        return materialMapper.deleteByItemCode(itemCode);
     }
 
 
