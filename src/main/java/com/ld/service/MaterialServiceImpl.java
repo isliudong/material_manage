@@ -57,6 +57,7 @@ public class MaterialServiceImpl implements MaterialService{
 
 
         List<Material> materials = materialMapper.search(searchDto);
+
         PaginationDTO<Material> paginationDTO = new PaginationDTO<>();
         paginationDTO.setData(materials);
         paginationDTO.setPagination(totalPage, page);
@@ -79,6 +80,11 @@ public class MaterialServiceImpl implements MaterialService{
     public int delete(String itemCode) {
 
         return materialMapper.deleteByItemCode(itemCode);
+    }
+
+    @Override
+    public String biggestItemCode() {
+        return materialMapper.biggestItemCode();
     }
 
 

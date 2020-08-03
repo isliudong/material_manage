@@ -1,12 +1,15 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org" lang="zh-CN">
 <head>
+    <link rel="stylesheet" type="text/css" href="../../css/index.css"/>
     <title>物料管理系统</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <link rel="stylesheet" href="/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/bootstrap-theme.min.css">
     <script src="/js/jquery-3.4.1.min.js"></script>
-    <script src="/js/bootstrap.min.js"> type = "application/javascript"</script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/index.js"></script>
+
 
 </head>
 <body>
@@ -18,14 +21,16 @@
             </div>
             <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
                 <!-- Button trigger modal -->
-                <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">新建</button>
+                <button  type="button" class="btn btn-default btn-lg my-button" data-toggle="modal" data-target="#myModal">新建
+                </button>
 
                 <!-- Modal -->
                 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                        aria-hidden="true">&times;</span></button>
                                 <h4 class="modal-title" id="myModalLabel">新物料入库</h4>
                             </div>
                             <div class="modal-body">
@@ -34,7 +39,8 @@
                                     <div class="form-group">
                                         <label for="newDescription" class="col-sm-2 control-label">物料描述</label>
                                         <div class="col-sm-10">
-                                            <input type="text" class="form-control" id="newDescription" name="newDescription">
+                                            <input type="text" class="form-control" id="newDescription"
+                                                   name="newDescription">
                                         </div>
 
                                     </div>
@@ -55,14 +61,16 @@
                                     <div class="form-group">
                                         <label for="newStartActiveDate" class="col-sm-2 control-label">生效时间</label>
                                         <div class="col-sm-10">
-                                            <input type="date" class="form-control" id="newStartActiveDate" name="newStartActiveDate">
+                                            <input type="date" class="form-control" id="newStartActiveDate"
+                                                   name="newStartActiveDate">
                                         </div>
                                     </div>
 
                                     <div class="form-group">
                                         <label for="newEndActiveDate" class="col-sm-2 control-label">有效期至</label>
                                         <div class="col-sm-10">
-                                            <input type="date" class="form-control" id="newEndActiveDate" name="newEndActiveDate">
+                                            <input type="date" class="form-control" id="newEndActiveDate"
+                                                   name="newEndActiveDate">
                                         </div>
                                     </div>
 
@@ -76,41 +84,38 @@
                                         </div>
                                     </div>
 
-                                    <div class="form-group">
-                                        <div class="col-sm-offset-2 col-sm-10">
-                                            <button type="submit" class="btn btn-default">保存</button>
-                                        </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">返回</button>
+                                        <button type="submit" class="btn btn-primary">保存</button>
                                     </div>
-
                                 </form>
                             </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-primary">Save changes</button>
-                            </div>
+
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <hr>
+    <hr class="hr-style">
 </div>
+
+<!--查询-->
 <div>
     <form class="form-inline" action="/index" method="get">
         <div class="form-group">
             <label for="itemCode">物料编码</label>
-            <input type="text" class="form-control" id="itemCode" name="itemCode">
+            <input type="text" th:value="${itemCode}" class="form-control" id="itemCode" name="itemCode">
         </div>
 
         <div class="form-group">
             <label for="description">物料描述</label>
-            <input type="text" class="form-control" id="description" name="description">
+            <input type="text" th:value="${description}" class="form-control" id="description" name="description">
         </div>
 
         <div class="form-group">
             <label for="itemUom">物料单位</label>
-            <select class="form-control" id="itemUom" name="itemUom">
+            <select class="form-control" th:value="${itemUom}" id="itemUom" name="itemUom">
                 <option value="米">米</option>
                 <option value="平方米">平方米</option>
                 <option value="立方米">立方米</option>
@@ -122,17 +127,17 @@
 
         <div class="form-group">
             <label for="startActiveDate">生效时间从</label>
-            <input type="date" class="form-control" id="startActiveDate" name="startActiveDate">
+            <input type="date"   class="form-control" id="startActiveDate" name="startActiveDate">
         </div>
 
         <div class="form-group">
             <label for="endActiveDate">生效时间至</label>
-            <input type="date" class="form-control" id="endActiveDate" name="endActiveDate">
+            <input type="date"  class="form-control" id="endActiveDate" name="endActiveDate">
         </div>
 
         <div class="form-group">
             <label for="enabledFlag">是否启用</label>
-            <select class="form-control" id="enabledFlag" name="enabledFlag">
+            <select class="form-control"  id="enabledFlag" name="enabledFlag">
                 <option value="是">是</option>
                 <option value="否">否</option>
             </select>
@@ -142,8 +147,9 @@
         <button type="submit" class="btn btn-default">查询</button>
     </form>
 </div>
-
-<div>
+<!--数据展示-->
+<div class="table-top">
+    <!--表格展示-->
     <table class="table table-bordered">
         <tr>
             <td>物料编码</td>
@@ -154,127 +160,160 @@
             <td>是否启用</td>
             <td>操作</td>
         </tr>
+        <!--表格数据-->
         <tr th:each="material:${pagination.data}">
             <td th:text="${material.itemCode}">ITEM0000000602</td>
             <td th:text="${material.itemDescription}">packing material for HU management</td>
             <td th:text="${material.itemUom}">个</td>
-            <td th:text="${material.startActiveDate}"></td>
-            <td th:text="${material.endActiveDate}"></td>
-            <td th:text="${material.enabledFlag}">是</td>
+            <td th:text="${#dates.format(material.startActiveDate, 'yyyy/MM/dd')}"></td>
+            <td th:text="${#dates.format(material.endActiveDate, 'yyyy/MM/dd')}"></td>
+            <td th:if="${material.enabledFlag}">是</td>
+            <td th:if="${not material.enabledFlag}">否</td>
 
             <td>
-                    <!-- Button trigger modal -->
-                    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" th:attrappend="data-target='#updateModal'+${material.itemCode}" >编辑</button>
-                    <!-- Modal -->
-                    <div class="modal fade" th:attrappend="id='updateModal'+${material.itemCode}" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                    <h4 class="modal-title" id="updateModalLabel">更新物料</h4>
-                                </div>
-                                <div class="modal-body">
-                                    <!--提交表单-->
-                                    <form class="form-horizontal" action="/update" >
-
-                                        <div class="form-group">
-                                            <label for="updateItemCode" class="col-sm-2 control-label">物料编码</label>
-                                            <div class="col-sm-10">
-                                                <input type="text" th:value="${material.itemCode}" disabled="disabled" class="form-control" id="updateItemCode" name="updateItemCode">
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label for="updateDescription" class="col-sm-2 control-label">物料描述</label>
-                                            <div class="col-sm-10">
-                                                <input type="text" class="form-control" th:value="${material.itemDescription}" id="updateDescription" name="updateDescription">
-                                            </div>
-
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label for="updateItemUom" class="col-sm-2 control-label">物料单位</label>
-                                            <div class="col-sm-10">
-                                                <select class="form-control" th:value="${material.itemUom}" id="updateItemUom" name="updateItemUom">
-                                                    <option value="米">米</option>
-                                                    <option value="平方米">平方米</option>
-                                                    <option value="立方米">立方米</option>
-                                                    <option value="千克">千克</option>
-                                                    <option value="个">个</option>
-                                                    <option value="其他">其他</option>
-                                                </select>
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label for="updateStartActiveDate" class="col-sm-2 control-label">生效时间</label>
-                                            <div class="col-sm-10">
-                                                <input type="date" th:value="${material.startActiveDate}" class="form-control" id="updateStartActiveDate" name="updateStartActiveDate">
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label for="updateEndActiveDate" class="col-sm-2 control-label">有效期至</label>
-                                            <div class="col-sm-10">
-                                                <input type="date" th:value="${material.endActiveDate}" class="form-control" id="updateEndActiveDate" name="updateEndActiveDate">
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label for="updateEnabledFlag" class="col-sm-2 control-label">是否启用</label>
-                                            <div class="col-sm-10">
-                                                <select class="form-control" th:value="${material.enabledFlag}" id="updateEnabledFlag" name="updateEnabledFlag">
-                                                    <option value="是">是</option>
-                                                    <option value="否">否</option>
-                                                </select>
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <div class="col-sm-offset-2 col-sm-10">
-                                                <button type="submit" class="btn btn-default">保存</button>
-                                            </div>
-                                        </div>
-
-                                    </form>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                    <button type="button" class="btn btn-primary">Save changes</button>
-                                </div>
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-primary btn-default" data-toggle="modal"
+                        th:attrappend="data-target='#updateModal'+${material.itemCode}">编辑
+                </button>
+                <!-- Modal -->
+                <div class="modal fade" th:attrappend="id='updateModal'+${material.itemCode}" tabindex="-1"
+                     role="dialog" aria-labelledby="updateModalLabel">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                        aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title" id="updateModalLabel">更新物料</h4>
                             </div>
+                            <div class="modal-body">
+                                <!--提交表单-->
+                                <form class="form-horizontal" action="/update">
+
+                                    <div class="form-group">
+                                        <label for="updateItemCode" class="col-sm-2 control-label">物料编码</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" th:value="${material.itemCode}" readonly = "readonly"
+                                                   class="form-control" id="updateItemCode" name="updateItemCode">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="updateDescription" class="col-sm-2 control-label">物料描述</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control"
+                                                   th:value="${material.itemDescription}" id="updateDescription"
+                                                   name="updateDescription">
+                                        </div>
+
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="updateItemUom" class="col-sm-2 control-label">物料单位</label>
+                                        <div class="col-sm-10">
+                                            <select class="form-control" th:value="${material.itemUom}"
+                                                    id="updateItemUom" name="updateItemUom">
+                                                <option value="米">米</option>
+                                                <option value="平方米">平方米</option>
+                                                <option value="立方米">立方米</option>
+                                                <option value="千克">千克</option>
+                                                <option value="个">个</option>
+                                                <option value="其他">其他</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="updateStartActiveDate" class="col-sm-2 control-label">生效时间</label>
+                                        <div class="col-sm-10">
+                                            <input type="date" th:value="${#dates.format(material.startActiveDate, 'yyyy-MM-dd')}"
+                                                   class="form-control" id="updateStartActiveDate"
+                                                   name="updateStartActiveDate">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="updateEndActiveDate" class="col-sm-2 control-label">有效期至</label>
+                                        <div class="col-sm-10">
+                                            <input type="date" th:value="${#dates.format(material.endActiveDate, 'yyyy-MM-dd')}" class="form-control"
+                                                   id="updateEndActiveDate" name="updateEndActiveDate">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="updateEnabledFlag" class="col-sm-2 control-label">是否启用</label>
+                                        <div class="col-sm-10">
+                                            <select class="form-control" th:value="${material.enabledFlag}"
+                                                    id="updateEnabledFlag" name="updateEnabledFlag">
+                                                <option value="是">是</option>
+                                                <option value="否">否</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                                        <button type="submit" class="btn btn-primary">保存变更</button>
+                                    </div>
+                                </form>
+                            </div>
+
                         </div>
                     </div>
-                <a th:href="@{delete(itemCode=${material.getItemCode()})}">
-                    删除
-                </a>
+                </div>
+
+
+                <button type="button" class="btn btn-primary" data-toggle="modal" th:attrappend="data-target='#deleteModal'+${material.itemCode}">删除</button>
+
+                <div class="modal fade" tabindex="-1" role="dialog" th:attrappend="id='deleteModal'+${material.itemCode}">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title">注意</h4>
+                            </div>
+                            <div class="modal-body">
+                                <p>是否确认删除？</p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+
+                                <button type="button" class="btn btn-primary" th:onclick="'javascript:toDelete(\'' + ${material.itemCode} + '\');'">确定</button>
+                            </div>
+                        </div><!-- /.modal-content -->
+                    </div><!-- /.modal-dialog -->
+                </div>
             </td>
         </tr>
-
     </table>
 
+    <!--分页按钮-->
     <nav aria-label="Page navigation">
         <ul class="pagination">
             <li>
-                <a th:href="@{/index(page=1,description=${description},itemCode=${itemCode},itemUom=${itemUom},startActiveDate=${startActiveDate},endActiveDate=${endActiveDate},enabledFlag=${enabledFlag})}" aria-label="Previous"
+                <a th:href="@{/index(page=1,description=${description},itemCode=${itemCode},itemUom=${itemUom},startActiveDate=${startActiveDate},endActiveDate=${endActiveDate},enabledFlag=${enabledFlag})}"
+                   aria-label="Previous"
                    th:if="${pagination.showFirstPage}">
                     <span aria-hidden="true">&laquo;</span>
                 </a>
-                <a th:href="@{/index(page=(${pagination.page}-1),description=${description},itemCode=${itemCode},itemUom=${itemUom},startActiveDate=${startActiveDate},endActiveDate=${endActiveDate},enabledFlag=${enabledFlag})}" aria-label="Previous"
+                <a th:href="@{/index(page=(${pagination.page}-1),description=${description},itemCode=${itemCode},itemUom=${itemUom},startActiveDate=${startActiveDate},endActiveDate=${endActiveDate},enabledFlag=${enabledFlag})}"
+                   aria-label="Previous"
                    th:if="${pagination.showPrevious}">
                     <span aria-hidden="true">&lsaquo;</span>
                 </a>
             </li>
             <li th:each="page:${pagination.pages}" th:class="${pagination.page==page}?'active':''">
-                <a th:href="@{/index(page=${page},description=${description},itemCode=${itemCode},itemUom=${itemUom},startActiveDate=${startActiveDate},endActiveDate=${endActiveDate},enabledFlag=${enabledFlag})}" th:text="${page}"></a>
+                <a th:href="@{/index(page=${page},description=${description},itemCode=${itemCode},itemUom=${itemUom},startActiveDate=${startActiveDate},endActiveDate=${endActiveDate},enabledFlag=${enabledFlag})}"
+                   th:text="${page}"></a>
             </li>
 
             <li>
-                <a th:href="@{/index(page=(${pagination.page}+1),description=${description},itemCode=${itemCode},itemUom=${itemUom},startActiveDate=${startActiveDate},endActiveDate=${endActiveDate},enabledFlag=${enabledFlag})}" aria-label="Next"
+                <a th:href="@{/index(page=(${pagination.page}+1),description=${description},itemCode=${itemCode},itemUom=${itemUom},startActiveDate=${startActiveDate},endActiveDate=${endActiveDate},enabledFlag=${enabledFlag})}"
+                   aria-label="Next"
                    th:if="${pagination.showNext}">
                     <span aria-hidden="true">&rsaquo;</span>
                 </a>
-                <a th:href="@{/index(page=${pagination.totalPage},description=${description},itemCode=${itemCode},itemUom=${itemUom},startActiveDate=${startActiveDate},endActiveDate=${endActiveDate},enabledFlag=${enabledFlag})}" aria-label="Next"
+                <a th:href="@{/index(page=${pagination.totalPage},description=${description},itemCode=${itemCode},itemUom=${itemUom},startActiveDate=${startActiveDate},endActiveDate=${endActiveDate},enabledFlag=${enabledFlag})}"
+                   aria-label="Next"
                    th:if="${pagination.showEndPage}">
                     <span aria-hidden="true">&raquo;</span>
                 </a>

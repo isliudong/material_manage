@@ -32,4 +32,6 @@ public interface MaterialMapper {
     Long totalCount(SearchDto searchDto);
 
     int deleteByItemCode(String itemCode);
+
+    String biggestItemCode();
 }

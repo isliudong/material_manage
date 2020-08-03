@@ -4,16 +4,17 @@ import com.ld.dto.PaginationDTO;
 import com.ld.dto.SearchDto;
 import com.ld.model.Material;
 import com.ld.service.MaterialServiceImpl;
+import com.ld.utils.MyUuId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.UUID;
 
 
 /**
@@ -27,6 +28,8 @@ public class IndexController {
 
     @Autowired
     MaterialServiceImpl materialService;
+    @Autowired
+    MyUuId myUuId;
 
 
     @RequestMapping("/index")
@@ -130,9 +133,8 @@ public class IndexController {
         material.setStartActiveDate(startDate);
         material.setItemDescription(newDescription);
         material.setItemUom(newItemUom);
-
+        material.setItemCode(myUuId.nextItemCode(materialService.biggestItemCode(),10));
         //可能线程问题
-        material.setItemCode("ITEM" +(materialService.getTotalCount()+1));
         materialService.insert(material);
         return "redirect:index";
 
@@ -182,8 +184,9 @@ public class IndexController {
     }
 
     @RequestMapping("/delete")
+    @ResponseBody
     public String delete(String itemCode){
         materialService.delete(itemCode);
-        return "redirect:index";
+        return "success";
     }
 }

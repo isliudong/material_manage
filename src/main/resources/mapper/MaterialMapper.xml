@@ -83,7 +83,10 @@
 
     </where>
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    <select id="biggestItemCode" resultType="java.lang.String">
+      select max(item_code) from ssm_item
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
 
     delete from ssm_item
     where item_id = #{itemId,jdbcType=BIGINT}

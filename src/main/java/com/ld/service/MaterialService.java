@@ -18,4 +18,6 @@ public interface MaterialService {
 
     int delete(String itemCode);
 
+    String biggestItemCode();
+
 }
