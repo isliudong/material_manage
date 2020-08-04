@@ -1,5 +1,7 @@
 package com.ld.model;
 
+import org.hibernate.validator.constraints.Length;
+
 import java.util.Date;
 
 /**
@@ -10,6 +12,7 @@ public class Material {
     private Long itemId;
     private String itemCode;
     private String itemUom;
+    @Length(max = 240)
     private String itemDescription;
     private Date startActiveDate;
     private Date endActiveDate;
@@ -22,8 +25,8 @@ public class Material {
 
     //java.lang.Long, java.lang.String, java.lang.String, java.lang.String, java.util.Date, java.util.Date, java.lang.Boolean, java.lang.Long, java.util.Date, java.lang.Long, java.lang.Long, java.util.Date
 
-    public Material(Long itemId,String itemCode, String itemUom, String itemDescription, Date startActiveDate, Date endActiveDate, Boolean enabledFlag, Long objectVersionNumber, Date creationDate, Long createdBy, Long lastUpdatedBy, Date lastUpdateDate) {
-        this.itemId=itemId;
+    public Material(Long itemId, String itemCode, String itemUom, String itemDescription, Date startActiveDate, Date endActiveDate, Boolean enabledFlag, Long objectVersionNumber, Date creationDate, Long createdBy, Long lastUpdatedBy, Date lastUpdateDate) {
+        this.itemId = itemId;
         this.itemCode = itemCode;
         this.itemUom = itemUom;
         this.itemDescription = itemDescription;

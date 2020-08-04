@@ -11,3 +11,23 @@
     margin-left: 93px;
     margin-top: 16px;
 }
+
+.nav-position {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.nav_ul {
+    margin: 20px 20px;
+}
+
+.aw-question-content {
+    font-size: 12px;
+    font-weight: normal;
+    color: #999;
+}
+
+.pagination{
+    margin: 20px 20px !important;
+}

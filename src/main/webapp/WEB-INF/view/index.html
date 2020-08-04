@@ -21,7 +21,8 @@
             </div>
             <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
                 <!-- Button trigger modal -->
-                <button  type="button" class="btn btn-default btn-lg my-button" data-toggle="modal" data-target="#myModal">新建
+                <button type="button" class="btn btn-default btn-lg my-button" data-toggle="modal"
+                        data-target="#myModal">新建
                 </button>
 
                 <!-- Modal -->
@@ -86,7 +87,7 @@
 
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-default" data-dismiss="modal">返回</button>
-                                        <button type="submit" class="btn btn-primary">保存</button>
+                                        <button type="submit" class="btn btn-default">保存</button>
                                     </div>
                                 </form>
                             </div>
@@ -115,29 +116,30 @@
 
         <div class="form-group">
             <label for="itemUom">物料单位</label>
-            <select class="form-control" th:value="${itemUom}" id="itemUom" name="itemUom">
-                <option value="米">米</option>
-                <option value="平方米">平方米</option>
-                <option value="立方米">立方米</option>
-                <option value="千克">千克</option>
-                <option value="个">个</option>
-                <option value="其他">其他</option>
+            <select class="form-control"  id="itemUom" name="itemUom">
+                <option th:selected="${itemUom == '米'}" value="米">米</option>
+                <option th:selected="${itemUom == '平方米'}" value="平方米">平方米</option>
+                <option th:selected="${itemUom == '立方米'}" value="立方米">立方米</option>
+                <option th:selected="${itemUom == '千克'}" value="千克">千克</option>
+                <option th:selected="${itemUom == '个'}" value="个">个</option>
+                <option th:selected="${itemUom == '其他'}" value="其他">其他</option>
+                <option th:selected="${itemUom == '全部'}" value="全部">全部</option>
             </select>
         </div>
 
         <div class="form-group">
             <label for="startActiveDate">生效时间从</label>
-            <input type="date"   class="form-control" id="startActiveDate" name="startActiveDate">
+            <input type="date" class="form-control" id="startActiveDate" name="startActiveDate">
         </div>
 
         <div class="form-group">
             <label for="endActiveDate">生效时间至</label>
-            <input type="date"  class="form-control" id="endActiveDate" name="endActiveDate">
+            <input type="date" class="form-control" id="endActiveDate" name="endActiveDate">
         </div>
 
         <div class="form-group">
             <label for="enabledFlag">是否启用</label>
-            <select class="form-control"  id="enabledFlag" name="enabledFlag">
+            <select class="form-control" id="enabledFlag" name="enabledFlag">
                 <option value="是">是</option>
                 <option value="否">否</option>
             </select>
@@ -172,7 +174,7 @@
 
             <td>
                 <!-- Button trigger modal -->
-                <button type="button" class="btn btn-primary btn-default" data-toggle="modal"
+                <button type="button" class="btn  btn-default" data-toggle="modal"
                         th:attrappend="data-target='#updateModal'+${material.itemCode}">编辑
                 </button>
                 <!-- Modal -->
@@ -192,7 +194,7 @@
                                     <div class="form-group">
                                         <label for="updateItemCode" class="col-sm-2 control-label">物料编码</label>
                                         <div class="col-sm-10">
-                                            <input type="text" th:value="${material.itemCode}" readonly = "readonly"
+                                            <input type="text" th:value="${material.itemCode}" readonly="readonly"
                                                    class="form-control" id="updateItemCode" name="updateItemCode">
                                         </div>
                                     </div>
@@ -218,6 +220,7 @@
                                                 <option value="千克">千克</option>
                                                 <option value="个">个</option>
                                                 <option value="其他">其他</option>
+
                                             </select>
                                         </div>
                                     </div>
@@ -225,7 +228,8 @@
                                     <div class="form-group">
                                         <label for="updateStartActiveDate" class="col-sm-2 control-label">生效时间</label>
                                         <div class="col-sm-10">
-                                            <input type="date" th:value="${#dates.format(material.startActiveDate, 'yyyy-MM-dd')}"
+                                            <input type="date"
+                                                   th:value="${#dates.format(material.startActiveDate, 'yyyy-MM-dd')}"
                                                    class="form-control" id="updateStartActiveDate"
                                                    name="updateStartActiveDate">
                                         </div>
@@ -234,7 +238,9 @@
                                     <div class="form-group">
                                         <label for="updateEndActiveDate" class="col-sm-2 control-label">有效期至</label>
                                         <div class="col-sm-10">
-                                            <input type="date" th:value="${#dates.format(material.endActiveDate, 'yyyy-MM-dd')}" class="form-control"
+                                            <input type="date"
+                                                   th:value="${#dates.format(material.endActiveDate, 'yyyy-MM-dd')}"
+                                                   class="form-control"
                                                    id="updateEndActiveDate" name="updateEndActiveDate">
                                         </div>
                                     </div>
@@ -252,7 +258,7 @@
 
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                                        <button type="submit" class="btn btn-primary">保存变更</button>
+                                        <button type="submit" class="btn btn-default">保存变更</button>
                                     </div>
                                 </form>
                             </div>
@@ -262,13 +268,17 @@
                 </div>
 
 
-                <button type="button" class="btn btn-primary" data-toggle="modal" th:attrappend="data-target='#deleteModal'+${material.itemCode}">删除</button>
+                <button type="button" class="btn btn-default" data-toggle="modal"
+                        th:attrappend="data-target='#deleteModal'+${material.itemCode}">删除
+                </button>
 
-                <div class="modal fade" tabindex="-1" role="dialog" th:attrappend="id='deleteModal'+${material.itemCode}">
+                <div class="modal fade" tabindex="-1" role="dialog"
+                     th:attrappend="id='deleteModal'+${material.itemCode}">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                        aria-hidden="true">&times;</span></button>
                                 <h4 class="modal-title">注意</h4>
                             </div>
                             <div class="modal-body">
@@ -277,7 +287,9 @@
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
 
-                                <button type="button" class="btn btn-primary" th:onclick="'javascript:toDelete(\'' + ${material.itemCode} + '\');'">确定</button>
+                                <button type="button" class="btn btn-default"
+                                        th:onclick="'javascript:toDelete(\'' + ${material.itemCode} + '\');'">确定
+                                </button>
                             </div>
                         </div><!-- /.modal-content -->
                     </div><!-- /.modal-dialog -->
@@ -287,8 +299,14 @@
     </table>
 
     <!--分页按钮-->
-    <nav aria-label="Page navigation">
-        <ul class="pagination">
+    <nav aria-label="Page navigation" class="nav-position">
+        <span class="aw-question-content">
+                显示
+                <span th:text="${pagination.page}"></span>-
+                <span th:text="${pagination.page+pagination.getData().size()-1}"></span>
+                条
+            </span>
+        <ul class="nav_ul pagination ">
             <li>
                 <a th:href="@{/index(page=1,description=${description},itemCode=${itemCode},itemUom=${itemUom},startActiveDate=${startActiveDate},endActiveDate=${endActiveDate},enabledFlag=${enabledFlag})}"
                    aria-label="Previous"
@@ -305,7 +323,6 @@
                 <a th:href="@{/index(page=${page},description=${description},itemCode=${itemCode},itemUom=${itemUom},startActiveDate=${startActiveDate},endActiveDate=${endActiveDate},enabledFlag=${enabledFlag})}"
                    th:text="${page}"></a>
             </li>
-
             <li>
                 <a th:href="@{/index(page=(${pagination.page}+1),description=${description},itemCode=${itemCode},itemUom=${itemUom},startActiveDate=${startActiveDate},endActiveDate=${endActiveDate},enabledFlag=${enabledFlag})}"
                    aria-label="Next"
@@ -319,6 +336,9 @@
                 </a>
             </li>
         </ul>
+        <span class="aw-question-content">
+            <span th:text="${pagination.getData().size()}"></span>条/页
+        </span>
     </nav>
 </div>
 

@@ -1,5 +1,7 @@
 package com.ld.dto;
 
+import org.hibernate.validator.constraints.Length;
+
 import java.util.Date;
 
 /**
@@ -8,7 +10,7 @@ import java.util.Date;
  * @author: LD
  * @create: 2020-08-01 13:46
  **/
-public class SearchDto {
+public class SearchDTO {
     private String itemCode;
     private String description;
     private String itemUom;
@@ -43,8 +45,7 @@ public class SearchDto {
     }
 
 
-
-    public SearchDto() {
+    public SearchDTO() {
     }
 
     public String getItemCode() {

@@ -1,88 +1,88 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ld.mapper.MaterialMapper">
-  <resultMap id="BaseResultMap" type="com.ld.model.Material">
+    <resultMap id="BaseResultMap" type="com.ld.model.Material">
 
-    <constructor>
-      <idArg column="item_id" javaType="java.lang.Long" jdbcType="BIGINT" />
-      <arg column="item_code" javaType="java.lang.String" jdbcType="VARCHAR" />
-      <arg column="item_uom" javaType="java.lang.String" jdbcType="VARCHAR" />
-      <arg column="item_description" javaType="java.lang.String" jdbcType="VARCHAR" />
-      <arg column="start_active_date" javaType="java.util.Date" jdbcType="DATE" />
-      <arg column="end_active_date" javaType="java.util.Date" jdbcType="DATE" />
-      <arg column="enabled_flag" javaType="java.lang.Boolean" jdbcType="BIT" />
-      <arg column="object_version_number" javaType="java.lang.Long" jdbcType="BIGINT" />
-      <arg column="creation_date" javaType="java.util.Date" jdbcType="TIMESTAMP" />
-      <arg column="created_by" javaType="java.lang.Long" jdbcType="BIGINT" />
-      <arg column="last_updated_by" javaType="java.lang.Long" jdbcType="BIGINT" />
-      <arg column="last_update_date" javaType="java.util.Date" jdbcType="TIMESTAMP" />
-    </constructor>
-  </resultMap>
-  <sql id="Base_Column_List">
+        <constructor>
+            <idArg column="item_id" javaType="java.lang.Long" jdbcType="BIGINT"/>
+            <arg column="item_code" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="item_uom" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="item_description" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="start_active_date" javaType="java.util.Date" jdbcType="DATE"/>
+            <arg column="end_active_date" javaType="java.util.Date" jdbcType="DATE"/>
+            <arg column="enabled_flag" javaType="java.lang.Boolean" jdbcType="BIT"/>
+            <arg column="object_version_number" javaType="java.lang.Long" jdbcType="BIGINT"/>
+            <arg column="creation_date" javaType="java.util.Date" jdbcType="TIMESTAMP"/>
+            <arg column="created_by" javaType="java.lang.Long" jdbcType="BIGINT"/>
+            <arg column="last_updated_by" javaType="java.lang.Long" jdbcType="BIGINT"/>
+            <arg column="last_update_date" javaType="java.util.Date" jdbcType="TIMESTAMP"/>
+        </constructor>
+    </resultMap>
+    <sql id="Base_Column_List">
 
     item_id, item_code, item_uom, item_description, start_active_date, end_active_date, 
     enabled_flag, object_version_number, creation_date, created_by, last_updated_by, 
     last_update_date
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
 
-    select 
-    <include refid="Base_Column_List" />
-    from ssm_item
-    where item_id = #{itemId,jdbcType=BIGINT}
-  </select>
-  <select id="search" parameterType="com.ld.dto.SearchDto" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from ssm_item
+        where item_id = #{itemId,jdbcType=BIGINT}
+    </select>
+    <select id="search" parameterType="com.ld.dto.SearchDTO" resultMap="BaseResultMap">
 
-    select * from ssm_item
-    <where>
-      <if test="description !=null">
-        and item_description regexp #{description}
-      </if>
-      <if test="itemCode !=null">
-        and item_code = #{itemCode}
-      </if>
-      <if test="itemUom !=null">
-        and item_uom = #{itemUom}
-      </if>
-      <if test="startActiveDate !=null">
-        and start_active_date &gt;= #{startActiveDate}
-      </if>
-      <if test="endActiveDate !=null">
-        and end_active_date &lt;= #{endActiveDate}
-      </if>
+        select * from ssm_item
+        <where>
+            <if test="description !=null">
+                and item_description regexp #{description}
+            </if>
+            <if test="itemCode !=null">
+                and item_code = #{itemCode}
+            </if>
+            <if test="itemUom !=null">
+                and item_uom = #{itemUom}
+            </if>
+            <if test="startActiveDate !=null">
+                and start_active_date &gt;= #{startActiveDate}
+            </if>
+            <if test="endActiveDate !=null">
+                and end_active_date &lt;= #{endActiveDate}
+            </if>
 
-      <if test="enabledFlag !=null">
-        and enabled_flag = #{enabledFlag}
-      </if>
+            <if test="enabledFlag !=null">
+                and enabled_flag = #{enabledFlag}
+            </if>
 
-    </where>
-    order by creation_date desc limit #{page},#{size}
-  </select>
-  <select id="totalCount" parameterType="com.ld.dto.SearchDto" resultType="java.lang.Long" >
-    select count(*) from ssm_item
-    <where>
-      <if test="description !=null ">
-        and item_description regexp #{description}
-      </if>
-      <if test="itemCode !=null">
-        and item_code = #{itemCode}
-      </if>
-      <if test="itemUom !=null">
-        and item_uom = #{itemUom}
-      </if>
-      <if test="startActiveDate !=null">
-        and start_active_date &gt;= #{startActiveDate}
-      </if>
-      <if test="endActiveDate !=null">
-        and end_active_date &lt;= #{endActiveDate}
-      </if>
+        </where>
+        order by creation_date desc limit #{page},#{size}
+    </select>
+    <select id="totalCount" parameterType="com.ld.dto.SearchDTO" resultType="java.lang.Long">
+        select count(*) from ssm_item
+        <where>
+            <if test="description !=null ">
+                and item_description regexp #{description}
+            </if>
+            <if test="itemCode !=null">
+                and item_code = #{itemCode}
+            </if>
+            <if test="itemUom !=null">
+                and item_uom = #{itemUom}
+            </if>
+            <if test="startActiveDate !=null">
+                and start_active_date &gt;= #{startActiveDate}
+            </if>
+            <if test="endActiveDate !=null">
+                and end_active_date &lt;= #{endActiveDate}
+            </if>
 
-      <if test="enabledFlag !=null">
-        and enabled_flag = #{enabledFlag}
-      </if>
+            <if test="enabledFlag !=null">
+                and enabled_flag = #{enabledFlag}
+            </if>
 
-    </where>
-  </select>
+        </where>
+    </select>
     <select id="biggestItemCode" resultType="java.lang.String">
       select max(item_code) from ssm_item
     </select>
@@ -91,146 +91,146 @@
     delete from ssm_item
     where item_id = #{itemId,jdbcType=BIGINT}
   </delete>
-  <delete id="deleteByItemCode" parameterType="java.lang.String">
+    <delete id="deleteByItemCode" parameterType="java.lang.String">
     delete from ssm_item where item_code = #{itemCode}
   </delete>
-  <insert id="insert" parameterType="com.ld.model.Material">
-    <!--
-      WARNING - @mbg.generated
-      This element is automatically generated by MyBatis Generator, do not modify.
-    -->
-    insert into ssm_item (item_id, item_code, item_uom, 
-      item_description, start_active_date, end_active_date, 
-      enabled_flag, object_version_number, creation_date, 
-      created_by, last_updated_by, last_update_date
-      )
-    values (#{itemId,jdbcType=BIGINT}, #{itemCode,jdbcType=VARCHAR}, #{itemUom,jdbcType=VARCHAR}, 
-      #{itemDescription,jdbcType=VARCHAR}, #{startActiveDate,jdbcType=DATE}, #{endActiveDate,jdbcType=DATE}, 
-      #{enabledFlag,jdbcType=BIT}, #{objectVersionNumber,jdbcType=BIGINT}, #{creationDate,jdbcType=TIMESTAMP}, 
-      #{createdBy,jdbcType=BIGINT}, #{lastUpdatedBy,jdbcType=BIGINT}, #{lastUpdateDate,jdbcType=TIMESTAMP}
-      )
-  </insert>
-  <insert id="insertSelective" parameterType="com.ld.model.Material">
+    <insert id="insert" parameterType="com.ld.model.Material">
+        <!--
+          WARNING - @mbg.generated
+          This element is automatically generated by MyBatis Generator, do not modify.
+        -->
+        insert into ssm_item (item_id, item_code, item_uom,
+        item_description, start_active_date, end_active_date,
+        enabled_flag, object_version_number, creation_date,
+        created_by, last_updated_by, last_update_date
+        )
+        values (#{itemId,jdbcType=BIGINT}, #{itemCode,jdbcType=VARCHAR}, #{itemUom,jdbcType=VARCHAR},
+        #{itemDescription,jdbcType=VARCHAR}, #{startActiveDate,jdbcType=DATE}, #{endActiveDate,jdbcType=DATE},
+        #{enabledFlag,jdbcType=BIT}, #{objectVersionNumber,jdbcType=BIGINT}, #{creationDate,jdbcType=TIMESTAMP},
+        #{createdBy,jdbcType=BIGINT}, #{lastUpdatedBy,jdbcType=BIGINT}, #{lastUpdateDate,jdbcType=TIMESTAMP}
+        )
+    </insert>
+    <insert id="insertSelective" parameterType="com.ld.model.Material">
 
-    insert into ssm_item
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="itemId != null">
-        item_id,
-      </if>
-      <if test="itemCode != null">
-        item_code,
-      </if>
-      <if test="itemUom != null">
-        item_uom,
-      </if>
-      <if test="itemDescription != null">
-        item_description,
-      </if>
-      <if test="startActiveDate != null">
-        start_active_date,
-      </if>
-      <if test="endActiveDate != null">
-        end_active_date,
-      </if>
-      <if test="enabledFlag != null">
-        enabled_flag,
-      </if>
-      <if test="objectVersionNumber != null">
-        object_version_number,
-      </if>
-      <if test="creationDate != null">
-        creation_date,
-      </if>
-      <if test="createdBy != null">
-        created_by,
-      </if>
-      <if test="lastUpdatedBy != null">
-        last_updated_by,
-      </if>
-      <if test="lastUpdateDate != null">
-        last_update_date,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="itemId != null">
-        #{itemId,jdbcType=BIGINT},
-      </if>
-      <if test="itemCode != null">
-        #{itemCode,jdbcType=VARCHAR},
-      </if>
-      <if test="itemUom != null">
-        #{itemUom,jdbcType=VARCHAR},
-      </if>
-      <if test="itemDescription != null">
-        #{itemDescription,jdbcType=VARCHAR},
-      </if>
-      <if test="startActiveDate != null">
-        #{startActiveDate,jdbcType=DATE},
-      </if>
-      <if test="endActiveDate != null">
-        #{endActiveDate,jdbcType=DATE},
-      </if>
-      <if test="enabledFlag != null">
-        #{enabledFlag,jdbcType=BIT},
-      </if>
-      <if test="objectVersionNumber != null">
-        #{objectVersionNumber,jdbcType=BIGINT},
-      </if>
-      <if test="creationDate != null">
-        #{creationDate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="createdBy != null">
-        #{createdBy,jdbcType=BIGINT},
-      </if>
-      <if test="lastUpdatedBy != null">
-        #{lastUpdatedBy,jdbcType=BIGINT},
-      </if>
-      <if test="lastUpdateDate != null">
-        #{lastUpdateDate,jdbcType=TIMESTAMP},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByItemCodeSelective" parameterType="com.ld.model.Material">
+        insert into ssm_item
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="itemId != null">
+                item_id,
+            </if>
+            <if test="itemCode != null">
+                item_code,
+            </if>
+            <if test="itemUom != null">
+                item_uom,
+            </if>
+            <if test="itemDescription != null">
+                item_description,
+            </if>
+            <if test="startActiveDate != null">
+                start_active_date,
+            </if>
+            <if test="endActiveDate != null">
+                end_active_date,
+            </if>
+            <if test="enabledFlag != null">
+                enabled_flag,
+            </if>
+            <if test="objectVersionNumber != null">
+                object_version_number,
+            </if>
+            <if test="creationDate != null">
+                creation_date,
+            </if>
+            <if test="createdBy != null">
+                created_by,
+            </if>
+            <if test="lastUpdatedBy != null">
+                last_updated_by,
+            </if>
+            <if test="lastUpdateDate != null">
+                last_update_date,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="itemId != null">
+                #{itemId,jdbcType=BIGINT},
+            </if>
+            <if test="itemCode != null">
+                #{itemCode,jdbcType=VARCHAR},
+            </if>
+            <if test="itemUom != null">
+                #{itemUom,jdbcType=VARCHAR},
+            </if>
+            <if test="itemDescription != null">
+                #{itemDescription,jdbcType=VARCHAR},
+            </if>
+            <if test="startActiveDate != null">
+                #{startActiveDate,jdbcType=DATE},
+            </if>
+            <if test="endActiveDate != null">
+                #{endActiveDate,jdbcType=DATE},
+            </if>
+            <if test="enabledFlag != null">
+                #{enabledFlag,jdbcType=BIT},
+            </if>
+            <if test="objectVersionNumber != null">
+                #{objectVersionNumber,jdbcType=BIGINT},
+            </if>
+            <if test="creationDate != null">
+                #{creationDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="createdBy != null">
+                #{createdBy,jdbcType=BIGINT},
+            </if>
+            <if test="lastUpdatedBy != null">
+                #{lastUpdatedBy,jdbcType=BIGINT},
+            </if>
+            <if test="lastUpdateDate != null">
+                #{lastUpdateDate,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByItemCodeSelective" parameterType="com.ld.model.Material">
 
-    update ssm_item
-    <set>
-      <if test="itemCode != null">
-        item_code = #{itemCode,jdbcType=VARCHAR},
-      </if>
-      <if test="itemUom != null">
-        item_uom = #{itemUom,jdbcType=VARCHAR},
-      </if>
-      <if test="itemDescription != null">
-        item_description = #{itemDescription,jdbcType=VARCHAR},
-      </if>
-      <if test="startActiveDate != null">
-        start_active_date = #{startActiveDate,jdbcType=DATE},
-      </if>
-      <if test="endActiveDate != null">
-        end_active_date = #{endActiveDate,jdbcType=DATE},
-      </if>
-      <if test="enabledFlag != null">
-        enabled_flag = #{enabledFlag,jdbcType=BIT},
-      </if>
-      <if test="objectVersionNumber != null">
-        object_version_number = #{objectVersionNumber,jdbcType=BIGINT},
-      </if>
-      <if test="creationDate != null">
-        creation_date = #{creationDate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="createdBy != null">
-        created_by = #{createdBy,jdbcType=BIGINT},
-      </if>
-      <if test="lastUpdatedBy != null">
-        last_updated_by = #{lastUpdatedBy,jdbcType=BIGINT},
-      </if>
-      <if test="lastUpdateDate != null">
-        last_update_date = #{lastUpdateDate,jdbcType=TIMESTAMP},
-      </if>
-    </set>
-    where item_code = #{itemCode,jdbcType=VARCHAR}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.ld.model.Material">
+        update ssm_item
+        <set>
+            <if test="itemCode != null">
+                item_code = #{itemCode,jdbcType=VARCHAR},
+            </if>
+            <if test="itemUom != null">
+                item_uom = #{itemUom,jdbcType=VARCHAR},
+            </if>
+            <if test="itemDescription != null">
+                item_description = #{itemDescription,jdbcType=VARCHAR},
+            </if>
+            <if test="startActiveDate != null">
+                start_active_date = #{startActiveDate,jdbcType=DATE},
+            </if>
+            <if test="endActiveDate != null">
+                end_active_date = #{endActiveDate,jdbcType=DATE},
+            </if>
+            <if test="enabledFlag != null">
+                enabled_flag = #{enabledFlag,jdbcType=BIT},
+            </if>
+
+            object_version_number =object_version_number+1,
+
+            <if test="creationDate != null">
+                creation_date = #{creationDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="createdBy != null">
+                created_by = #{createdBy,jdbcType=BIGINT},
+            </if>
+            <if test="lastUpdatedBy != null">
+                last_updated_by = #{lastUpdatedBy,jdbcType=BIGINT},
+            </if>
+            <if test="lastUpdateDate != null">
+                last_update_date = #{lastUpdateDate,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where item_code = #{itemCode,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.ld.model.Material">
 
     update ssm_item
     set item_code = #{itemCode,jdbcType=VARCHAR},

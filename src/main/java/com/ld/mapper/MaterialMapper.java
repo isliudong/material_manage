@@ -1,6 +1,6 @@
 package com.ld.mapper;
 
-import com.ld.dto.SearchDto;
+import com.ld.dto.SearchDTO;
 import com.ld.model.Material;
 
 import java.util.List;
@@ -27,9 +27,9 @@ public interface MaterialMapper {
 
     int updateByPrimaryKey(Material record);
 
-    List<Material> search(SearchDto searchDto);
+    List<Material> search(SearchDTO searchDto);
 
-    Long totalCount(SearchDto searchDto);
+    Long totalCount(SearchDTO searchDto);
 
     int deleteByItemCode(String itemCode);
 

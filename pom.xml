@@ -233,7 +233,11 @@
       <version>3.0.9.RELEASE</version>
     </dependency>
 
-
+    <dependency>
+      <groupId>com.alibaba</groupId>
+      <artifactId>fastjson</artifactId>
+      <version>1.2.57</version>
+    </dependency>
 
   </dependencies>
 

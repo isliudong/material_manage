@@ -16,54 +16,63 @@ public class PaginationDTO<T> {
     private boolean showFirstPage;
     private boolean showNext;
     private boolean showEndPage;
-    private Integer page;//当前页码
-    private List<Integer> pages=new ArrayList<>();//包含页码
+
+    /**
+     * 当前页码
+     */
+    private Integer page;
+    /**
+     * 包含页码
+     */
+    private List<Integer> pages;
     private Integer totalPage;
 
     public void setPagination(Integer totalPage, Integer page) {
-        this.totalPage=totalPage;
+        this.totalPage = totalPage;
         //Integer totalPage;//页数
         int temp;//当前包含页码
-        this.page=page;
+        this.page = page;
 
         //当前页包含页码设置
-        for(int i=-3;i<4;i++)
-        {
-            temp=page+i;
-            if (temp>0&&temp<=totalPage)
-            {
+        for (int i = -3; i < 4; i++) {
+            temp = page + i;
+            if (temp > 0 && temp <= totalPage) {
                 pages.add(temp);
-            }
-            else {
-                if(temp<totalPage) {
+            } else {
+                if (temp < totalPage) {
                     i--;
                 }
                 page++;
             }
         }
         //是否暂展示上一页按钮
-        if(page==1){
-            showPrevious=false;
+        if (page == 1) {
+            showPrevious = false;
+        } else {
+            showPrevious = true;
         }
-        else {showPrevious=true;}
         //是否暂展示下一页按钮
-        if (page.equals(totalPage)){
-            showNext=false;
+        if (page.equals(totalPage)) {
+            showNext = false;
+        } else {
+            showNext = true;
         }
-        else {showNext=true;}
         //是否暂展示第一页按钮
-        if(pages.contains(1)){
-            showFirstPage=false;
+        if (pages.contains(1)) {
+            showFirstPage = false;
+        } else {
+            showFirstPage = true;
         }
-        else {showFirstPage=true;}
         //是否暂展示最后一页按钮
-        if(pages.contains(totalPage)){
-            showEndPage=false;
+        if (pages.contains(totalPage)) {
+            showEndPage = false;
+        } else {
+            showEndPage = true;
         }
-        else {showEndPage=true;}
     }
 
     public PaginationDTO() {
+        pages = new ArrayList<>();
     }
 
     public List<T> getData() {

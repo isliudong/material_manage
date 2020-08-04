@@ -17,11 +17,11 @@ import java.util.UUID;
 @Component
 public class MyUuId {
     /**
-    * @decription:指定位数code
-    **/
-    public String nextItemCode(String biggestItemCode,int digit){
+     * @decription:指定位数code
+     **/
+    public String nextItemCode(String biggestItemCode, int digit) {
         String nextCode = String.format("%0" + digit + "d", Long.parseLong(biggestItemCode.substring(4)) + 1);
-        return "ITEM"+nextCode;
+        return "ITEM" + nextCode;
     }
 
 

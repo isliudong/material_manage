@@ -1,7 +1,7 @@
 package com.ld.service;
 
 import com.ld.dto.PaginationDTO;
-import com.ld.dto.SearchDto;
+import com.ld.dto.SearchDTO;
 import com.ld.mapper.MaterialMapper;
 import com.ld.model.Material;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,17 +16,18 @@ import java.util.List;
  * @create: 2020-08-01 11:31
  **/
 @Service
-public class MaterialServiceImpl implements MaterialService{
+public class MaterialServiceImpl implements MaterialService {
 
     @Autowired
     private MaterialMapper materialMapper;
+
     @Override
     public int insert(Material record) {
         return materialMapper.insertSelective(record);
     }
 
     @Override
-    public PaginationDTO<Material> search(SearchDto searchDto) {
+    public PaginationDTO<Material> search(SearchDTO searchDto) {
 
         Long totalCount = materialMapper.totalCount(searchDto);
 
@@ -35,8 +36,8 @@ public class MaterialServiceImpl implements MaterialService{
         int totalPage;
 
         /*
-        * 页面范围限制
-        * */
+         * 页面范围限制
+         * */
         if (totalCount % size == 0) {
             totalPage = (int) (totalCount / size);
         } else {
@@ -44,16 +45,15 @@ public class MaterialServiceImpl implements MaterialService{
         }
         if (page < 1) {
             page = 1;
-        } else if (totalPage>0&&page > totalPage) {
+        } else if (totalPage > 0 && page > totalPage) {
             page = totalPage;
         }
 
         /*
-        * 分页初始位置计算
-        * */
+         * 分页初始位置计算
+         * */
         Integer offset = size * (page - 1);
         searchDto.setPage(offset);
-
 
 
         List<Material> materials = materialMapper.search(searchDto);
@@ -68,7 +68,7 @@ public class MaterialServiceImpl implements MaterialService{
 
     @Override
     public Long getTotalCount() {
-        return materialMapper.totalCount(new SearchDto());
+        return materialMapper.totalCount(new SearchDTO());
     }
 
     @Override
