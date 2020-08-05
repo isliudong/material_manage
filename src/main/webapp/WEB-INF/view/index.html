@@ -135,23 +135,23 @@
             <div class="col-md-1"></div>
             <div class="form-group col-md-3">
                 <label for="startActiveDate">生效时间从</label>
-                <input type="date" class="form-control" id="startActiveDate" name="startActiveDate">
+                <input type="date" class="form-control" th:value="${#dates.format(startDate, 'yyyy-MM-dd')}" id="startActiveDate" name="startActiveDate">
             </div>
 
             <div class="form-group col-md-3">
                 <label for="endActiveDate">生效时间至</label>
-                <input type="date" class="form-control" id="endActiveDate" name="endActiveDate">
+                <input type="date" class="form-control" th:value="${#dates.format(endDate, 'yyyy-MM-dd')}"  id="endActiveDate" name="endActiveDate">
             </div>
 
             <div class="form-group col-md-3">
                 <label for="enabledFlag">是否启用</label>
                 <select class="form-control" id="enabledFlag" name="enabledFlag">
-                    <option value="是">是</option>
-                    <option value="否">否</option>
+                    <option th:selected="${enabledFlag == '是'}" value="是">是</option>
+                    <option th:selected="${enabledFlag == '否'}" value="否">否</option>
                 </select>
             </div>
             <div class="col-md-2" style="height: 100%;box-sizing: border-box;padding-top: 24px">
-                <button type="button" class="btn btn-default">重置</button>
+                <button type="reset" class="btn btn-default">重置</button>
                 <button type="submit" class="btn btn-default">查询</button>
             </div>
         </div>

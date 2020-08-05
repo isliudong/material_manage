@@ -13,6 +13,7 @@ public interface MaterialService {
 
     PaginationDTO<Material> search(SearchDTO searchDto);
 
+
     Long getTotalCount();
 
     int update(Material material);
@@ -20,5 +21,7 @@ public interface MaterialService {
     int delete(String itemCode);
 
     String biggestItemCode();
+
+
 
 }

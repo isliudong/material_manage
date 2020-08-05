@@ -35,7 +35,7 @@ function del_checked() {
         }),
         traditional: true,//数组去[]
         success:function(result){
-            console.log(result);
+            console.log(result.message);
             location.reload();
         }
     });

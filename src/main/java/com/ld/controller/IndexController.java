@@ -2,6 +2,7 @@ package com.ld.controller;
 
 import com.ld.cache.Uom;
 import com.ld.dto.PaginationDTO;
+import com.ld.dto.ResultDTO;
 import com.ld.dto.SearchDTO;
 import com.ld.enums.exception.ErrorCode;
 import com.ld.enums.exception.MyException;
@@ -80,27 +81,36 @@ public class IndexController {
         }
 
 
-        SearchDTO searchDto = new SearchDTO();
 
-        searchDto.setDescription(description);
 
-        searchDto.setEnabledFlag(enabledFlag1);
-        searchDto.setStartActiveDate(startDate);
-        searchDto.setEndActiveDate(endDate);
-        searchDto.setItemCode(itemCode);
-        searchDto.setItemUom(itemUom);
-        searchDto.setPage(page);
-        searchDto.setSize(size);
+        PaginationDTO<Material> pagination;
+        if (itemCode!=null){
+            SearchDTO searchDTO = new SearchDTO();
+            searchDTO.setItemCode(itemCode);
+            searchDTO.setPage(page);
+            searchDTO.setSize(size);
+            pagination = materialService.search(searchDTO);
+        }else {
+            SearchDTO searchDto = new SearchDTO();
 
-        PaginationDTO<Material> pagination = materialService.search(searchDto);
+            searchDto.setDescription(description);
+            searchDto.setEnabledFlag(enabledFlag1);
+            searchDto.setStartActiveDate(startDate);
+            searchDto.setEndActiveDate(endDate);
+            searchDto.setItemUom(itemUom);
+            searchDto.setPage(page);
+            searchDto.setSize(size);
+            pagination = materialService.search(searchDto);
+        }
+
 
 
         model.addAttribute("pagination", pagination);
         model.addAttribute("description", description);
         model.addAttribute("itemCode", itemCode);
         model.addAttribute("itemUom", itemUom);
-        model.addAttribute("startActiveDate", startActiveDate);
-        model.addAttribute("endActiveDate", endActiveDate);
+        model.addAttribute("startDate",startDate);
+        model.addAttribute("endDate",endDate);
         model.addAttribute("enabledFlag", enabledFlag);
 
         return "index";
@@ -185,18 +195,22 @@ public class IndexController {
 
     @RequestMapping("/delete")
     @ResponseBody
-    public String delete(String itemCode) {
-        materialService.delete(itemCode);
-        return "success";
+    public ResultDTO delete(String itemCode) {
+        if(materialService.delete(itemCode)==1){
+            return ResultDTO.ok();
+        }else {
+            return ResultDTO.error(new MyException(ErrorCode.ERROR));
+        }
+
     }
 
     @RequestMapping("/del_checked")
     @ResponseBody
-    public String delChecked(String[] itemCodes) {
+    public ResultDTO delChecked(String[] itemCodes) {
         if (materialService.delete(itemCodes)==1) {
-            return "success";
+            return ResultDTO.ok();
         }else {
-            return "error";
+            return ResultDTO.error(new MyException(ErrorCode.ERROR));
         }
     }
 }
