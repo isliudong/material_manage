@@ -189,4 +189,14 @@ public class IndexController {
         materialService.delete(itemCode);
         return "success";
     }
+
+    @RequestMapping("/del_checked")
+    @ResponseBody
+    public String delChecked(String[] itemCodes) {
+        if (materialService.delete(itemCodes)==1) {
+            return "success";
+        }else {
+            return "error";
+        }
+    }
 }

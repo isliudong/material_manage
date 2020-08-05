@@ -170,7 +170,7 @@
                     <td>生效时间从</td>
                     <td>生效时间至</td>
                     <td>是否启用</td>
-                    <td>操作</td>
+                    <td>操作  <button class="btn-default del_checked_btn" onclick="del_checked()">批量删除</button></td>
                 </tr>
                 <!--表格数据-->
                 <tr th:each="material:${pagination.data}">
@@ -281,7 +281,6 @@
                         <button type="button" class="btn btn-default" data-toggle="modal"
                                 th:attrappend="data-target='#deleteModal'+${material.itemCode}">删除
                         </button>
-
                         <div class="modal fade" tabindex="-1" role="dialog"
                              th:attrappend="id='deleteModal'+${material.itemCode}">
                             <div class="modal-dialog" role="document">
@@ -304,6 +303,9 @@
                                 </div><!-- /.modal-content -->
                             </div><!-- /.modal-dialog -->
                         </div>
+                        <label>
+                            <input type="checkbox" th:id="'checkbox'+${material.itemCode}" th:onclick="'javascript:check_box_click(\'' + ${material.itemCode} + '\');'">
+                        </label>
                     </td>
                 </tr>
             </table>
