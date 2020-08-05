@@ -42,3 +42,8 @@ function del_checked() {
     a.splice(0,a.length);
 
 }
+
+function toIndex() {
+    window.location.href = "/index";
+
+}
